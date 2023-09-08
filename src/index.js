@@ -1,17 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Card from './Card';
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
 import { cats } from './cats';
+import CardsList from './CardsList'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Card id={cats[0].id} name={cats[0].name} email={cats[0].email} />
-    <Card id={cats[1].id} name={cats[1].name} email={cats[1].email} />
-    <Card id={cats[2].id} name={cats[2].name} email={cats[2].email} />
+    <CardsList cats={cats} />
   </React.StrictMode>
 );
 
