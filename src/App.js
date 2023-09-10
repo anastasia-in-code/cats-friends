@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import CardsList from './CardsList'
 import SearchBox from './SearchBox'
-import { cats } from './cats';
+import Scroll from './Scroll'
 import './App.css'
 
 class App extends Component {
    constructor() {
       super()
       this.state = {
-         cats: cats,
+         cats: [],
          searchValue: ''
       }
    }
@@ -33,7 +33,9 @@ class App extends Component {
       return <div className='tc'>
          <h1 className='f2'>CATS FROM CARTOONS</h1>
          <SearchBox searchValue={this.state.searchValue} onSearchChange={this.onSearchChange} />
-         <CardsList cats={filteredCats} />
+         <Scroll>
+            <CardsList cats={filteredCats} />
+         </Scroll>
       </div>
    }
 }
