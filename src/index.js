@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import 'tachyons';
-import { cats } from './cats';
-import CardsList from './CardsList'
+import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CardsList cats={cats} />
+    <App />
   </React.StrictMode>
 );
 
