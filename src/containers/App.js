@@ -1,46 +1,40 @@
-import React, { Component } from 'react'
+import React, {  useState, useEffect } from 'react'
 import CardsList from '../components/CardsList'
 import SearchBox from '../components/SearchBox'
 import Scroll from '../components/Scroll'
 import ErrorBoundary from '../components/ErrorBoundary'
 import './App.css'
 
-class App extends Component {
-   constructor() {
-      super()
-      this.state = {
-         cats: [],
-         searchValue: ''
-      }
-   }
+const App = () => {
+   const [cats, setCats] = useState([])
+   const [searchValue, setSearchValue] = useState('')
 
-   componentDidMount() {
+   useEffect(() => {
       fetch('https://jsonplaceholder.typicode.com/users')
          .then(res => res.json())
-         .then(users => this.setState({ cats: users }))
+         .then(users => setCats(users))
+   }, [])
+
+   const onSearchChange = (event) => {
+      setSearchValue(event.target.value)
    }
 
-   onSearchChange = (event) => {
-      this.setState({ searchValue: event.target.value })
-   }
+   const filteredCats = cats.filter(cat => {
+      return cat.name.toLowerCase().includes(searchValue.toLowerCase())
+   })
 
-   render() {
-      const { cats, searchValue } = this.state
-      const filteredCats = cats.filter(cat => {
-         return cat.name.toLowerCase().includes(searchValue.toLowerCase())
-      })
-      return !cats.length ?
-         <h1 className='tc'>Loading...</h1> :
-         <div className='tc'>
-            <h1 className='f2'>CATS FROM CARTOONS</h1>
-            <SearchBox onSearchChange={this.onSearchChange} />
-            <Scroll>
-               <ErrorBoundary>
-                  <CardsList cats={filteredCats} />
-               </ErrorBoundary>
-            </Scroll>
-         </div>
-   }
+   console.log(cats)
+   return !cats.length ?
+      <h1 className='tc'>Loading...</h1> :
+      <div className='tc'>
+         <h1 className='f2'>CATS FROM CARTOONS</h1>
+         <SearchBox onSearchChange={onSearchChange} />
+         <Scroll>
+            <ErrorBoundary>
+               <CardsList cats={filteredCats} />
+            </ErrorBoundary>
+         </Scroll>
+      </div>
 }
 
 export default App
