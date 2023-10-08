@@ -1,30 +1,44 @@
-import React, {  useState, useEffect } from 'react'
-import CardsList from '../components/CardsList'
-import SearchBox from '../components/SearchBox'
-import Scroll from '../components/Scroll'
-import ErrorBoundary from '../components/ErrorBoundary'
-import './App.css'
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import CardsList from '../components/CardsList';
+import SearchBox from '../components/SearchBox';
+import Scroll from '../components/Scroll';
+import ErrorBoundary from '../components/ErrorBoundary';
+import './App.css';
+import { setSearchField, requestCats } from '../actions';
 
-const App = () => {
-   const [cats, setCats] = useState([])
-   const [searchValue, setSearchValue] = useState('')
+const mapStateToProps = state => {
+   return {
+      searchField: state.searchCats.searchField,
+      cats: state.requestCats.cats,
+      isPending: state.requestCats.isPending,
+      error: state.requestCats.error
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+      onRequestCats: () => dispatch(requestCats())
+   }
+}
+
+const App = ({
+   searchField, 
+   onSearchChange, 
+   cats, 
+   isPending, 
+   onRequestCats}) => {
 
    useEffect(() => {
-      fetch('https://jsonplaceholder.typicode.com/users')
-         .then(res => res.json())
-         .then(users => setCats(users))
-   }, [])
-
-   const onSearchChange = (event) => {
-      setSearchValue(event.target.value)
-   }
+      onRequestCats()
+   }, [onRequestCats]);
 
    const filteredCats = cats.filter(cat => {
-      return cat.name.toLowerCase().includes(searchValue.toLowerCase())
-   })
+      return cat.name.toLowerCase().includes(searchField.toLowerCase());
+   });
 
-   console.log(cats)
-   return !cats.length ?
+   return isPending ?
       <h1 className='tc'>Loading...</h1> :
       <div className='tc'>
          <h1 className='f2'>CATS FROM CARTOONS</h1>
@@ -35,6 +49,6 @@ const App = () => {
             </ErrorBoundary>
          </Scroll>
       </div>
-}
+};
 
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App);
