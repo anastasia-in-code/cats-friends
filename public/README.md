@@ -1,6 +1,6 @@
-# CATS FRIENDS
+# CATS FROM CARTOONS 
 
-The list of cats with search functionality.
+The list of cats from cartoons, where you can search by cat name.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
