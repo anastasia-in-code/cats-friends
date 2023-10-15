@@ -41,7 +41,7 @@ const App = ({
    return isPending ?
       <h1 className='tc'>Loading...</h1> :
       <div className='tc'>
-         <h1 className='f2'>CATS FROM CARTOONS</h1>
+         <h1 className='f2'>CATS</h1>
          <SearchBox onSearchChange={onSearchChange} />
          <Scroll>
             <ErrorBoundary>
