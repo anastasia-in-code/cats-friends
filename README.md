@@ -25,3 +25,4 @@ This command optimizes the build for performance and bundles React in production
 For more information on deploying React applications, refer to the deployment  [deployment](https://facebook.github.io/create-react-app/docs/deployment) documentation.
 
 Happy exploring and enjoy Cats Friends! 🐱
+
